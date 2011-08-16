@@ -130,11 +130,6 @@
 		93B523B313FA0DB60061566A = {
 			isa = PBXGroup;
 			children = (
-				93B5245813FAF4C10061566A /* libz.1.2.3.dylib */,
-				93B5245513FAF0FA0061566A /* CoreGraphics.framework */,
-				93B5245113FAF02E0061566A /* MobileCoreServices.framework */,
-				93B5244F13FAF01B0061566A /* SystemConfiguration.framework */,
-				93B5244D13FAEFFE0061566A /* CFNetwork.framework */,
 				93B5243513FAEDC60061566A /* ASIHTTP */,
 				93B523C813FA0DB60061566A /* iRest */,
 				93B523EA13FA0DB60061566A /* iRestTests */,
@@ -155,6 +150,11 @@
 		93B523C113FA0DB60061566A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93B5245813FAF4C10061566A /* libz.1.2.3.dylib */,
+				93B5245513FAF0FA0061566A /* CoreGraphics.framework */,
+				93B5245113FAF02E0061566A /* MobileCoreServices.framework */,
+				93B5244F13FAF01B0061566A /* SystemConfiguration.framework */,
+				93B5244D13FAEFFE0061566A /* CFNetwork.framework */,
 				93B523C213FA0DB60061566A /* UIKit.framework */,
 				93B523C413FA0DB60061566A /* Foundation.framework */,
 				93B523C613FA0DB60061566A /* CoreGraphics.framework */,
