@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9348D46A13FB175B003DFDC0 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 9348D46913FB175B003DFDC0 /* README */; };
 		93B523C313FA0DB60061566A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C213FA0DB60061566A /* UIKit.framework */; };
 		93B523C513FA0DB60061566A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C413FA0DB60061566A /* Foundation.framework */; };
 		93B523C713FA0DB60061566A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C613FA0DB60061566A /* CoreGraphics.framework */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9348D46913FB175B003DFDC0 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		93B523BE13FA0DB60061566A /* iRest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B523C213FA0DB60061566A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93B523C413FA0DB60061566A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -130,6 +132,7 @@
 		93B523B313FA0DB60061566A = {
 			isa = PBXGroup;
 			children = (
+				9348D46913FB175B003DFDC0 /* README */,
 				93B5243513FAEDC60061566A /* ASIHTTP */,
 				93B523C813FA0DB60061566A /* iRest */,
 				93B523EA13FA0DB60061566A /* iRestTests */,
@@ -314,6 +317,7 @@
 				93B523CD13FA0DB60061566A /* InfoPlist.strings in Resources */,
 				93B523D613FA0DB60061566A /* MainWindow.xib in Resources */,
 				93B523DC13FA0DB60061566A /* iRestViewController.xib in Resources */,
+				9348D46A13FB175B003DFDC0 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +540,7 @@
 				93B523F813FA0DB60061566A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		93B523F913FA0DB60061566A /* Build configuration list for PBXNativeTarget "iRestTests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +549,7 @@
 				93B523FB13FA0DB60061566A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
