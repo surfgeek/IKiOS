@@ -90,6 +90,7 @@
 {
     // Use when fetching text data
     NSString *responseString = [request responseString];
+    [responseTextView setText:responseString];
     
     // Need to do more stuff here
     
@@ -100,6 +101,7 @@
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     NSError *error = [request error];
-    [responseTextView setText:error];
+    
+    [responseTextView setText:error.description];
 }
 @end
