@@ -24,5 +24,5 @@
 
 - (IBAction)sendButtonClick:(id)sender;
 
--(void)PostData: (NSString*) server: (NSString*) text;
+-(void)PostDataToServer: (NSString*) server text: (NSString*) inputText;
 @end
