@@ -60,7 +60,7 @@
 		93B523CE13FA0DB60061566A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93B523D013FA0DB60061566A /* iRest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iRest-Prefix.pch"; sourceTree = "<group>"; };
 		93B523D113FA0DB60061566A /* iRestAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iRestAppDelegate.h; sourceTree = "<group>"; };
-		93B523D213FA0DB60061566A /* iRestAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iRestAppDelegate.m; sourceTree = "<group>"; };
+		93B523D213FA0DB60061566A /* iRestAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = iRestAppDelegate.m; path = ../iRest/iRestAppDelegate.m; sourceTree = "<group>"; };
 		93B523D513FA0DB60061566A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		93B523D713FA0DB60061566A /* iRestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iRestViewController.h; sourceTree = "<group>"; };
 		93B523D813FA0DB60061566A /* iRestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iRestViewController.m; sourceTree = "<group>"; };
@@ -170,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				93B523D113FA0DB60061566A /* iRestAppDelegate.h */,
-				93B523D213FA0DB60061566A /* iRestAppDelegate.m */,
 				93B523D413FA0DB60061566A /* MainWindow.xib */,
 				93B523D713FA0DB60061566A /* iRestViewController.h */,
 				93B523D813FA0DB60061566A /* iRestViewController.m */,
@@ -213,6 +212,7 @@
 		93B5243513FAEDC60061566A /* ASIHTTP */ = {
 			isa = PBXGroup;
 			children = (
+				93B523D213FA0DB60061566A /* iRestAppDelegate.m */,
 				93B5243613FAEDC60061566A /* ASIAuthenticationDialog.h */,
 				93B5243713FAEDC60061566A /* ASIAuthenticationDialog.m */,
 				93B5243813FAEDC60061566A /* ASICacheDelegate.h */,
