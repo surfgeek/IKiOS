@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [serverUrl setText:@"http://bccm4500:12345/IOSService/UploadXml"];
+    [serverUrl setText:@"http://192.168.1.10/Rest/IOSService/CurrentTime"];
 }
 
 
@@ -91,12 +91,15 @@
     // Use when fetching text data
     NSString *responseString = [request responseString];
     
+    // Need to do more stuff here
+    
     // Use when fetching binary data
-    NSData *responseData = [request responseData];
+    //NSData *responseData = [request responseData];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     NSError *error = [request error];
+    [responseTextView setText:error];
 }
 @end
