@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [serverUrl setText:@"http://192.168.1.10/Rest/IOSService/CurrentTime"];
+    [serverUrl setText:@"http://bccm4500/Rest/IOSService/CurrentTime"];
 }
 
 
@@ -74,10 +74,10 @@
     // Post the input text to the remote server
     NSString* server = serverUrl.text;
     
-    [self PostData:input:server];
+    [self PostDataToServer: server text: input];
 }
 
--(void)PostData: (NSString*) server : (NSString*) text
+-(void)PostDataToServer: (NSString*) server text: (NSString*) inputText
 {
     // Post data to REST service 
     NSURL *url = [NSURL URLWithString:server];
