@@ -10,7 +10,6 @@
 		9348D46A13FB175B003DFDC0 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 9348D46913FB175B003DFDC0 /* README */; };
 		93B523C313FA0DB60061566A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C213FA0DB60061566A /* UIKit.framework */; };
 		93B523C513FA0DB60061566A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C413FA0DB60061566A /* Foundation.framework */; };
-		93B523C713FA0DB60061566A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C613FA0DB60061566A /* CoreGraphics.framework */; };
 		93B523CD13FA0DB60061566A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93B523CB13FA0DB60061566A /* InfoPlist.strings */; };
 		93B523CF13FA0DB60061566A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B523CE13FA0DB60061566A /* main.m */; };
 		93B523D313FA0DB60061566A /* iRestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B523D213FA0DB60061566A /* iRestAppDelegate.m */; };
@@ -20,7 +19,6 @@
 		93B523E413FA0DB60061566A /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523E313FA0DB60061566A /* SenTestingKit.framework */; };
 		93B523E513FA0DB60061566A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C213FA0DB60061566A /* UIKit.framework */; };
 		93B523E613FA0DB60061566A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C413FA0DB60061566A /* Foundation.framework */; };
-		93B523E713FA0DB60061566A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C613FA0DB60061566A /* CoreGraphics.framework */; };
 		93B523EF13FA0DB60061566A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 93B523ED13FA0DB60061566A /* InfoPlist.strings */; };
 		93B523F113FA0DB60061566A /* iRestTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 93B523F013FA0DB60061566A /* iRestTests.h */; };
 		93B523F313FA0DB60061566A /* iRestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B523F213FA0DB60061566A /* iRestTests.m */; };
@@ -37,6 +35,9 @@
 		93B5246013FAF5C40061566A /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B5244613FAEDC60061566A /* ASIInputStream.m */; };
 		93B5246113FAF5C40061566A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B5244813FAEDC60061566A /* ASINetworkQueue.m */; };
 		93B5246213FAF5C40061566A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B5244C13FAEDC60061566A /* Reachability.m */; };
+		93BCEBCE13FC690A0020DB12 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BCEBCD13FC690A0020DB12 /* GDataXMLNode.m */; };
+		93BCEBD313FC76040020DB12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BCEBD213FC76040020DB12 /* CoreGraphics.framework */; };
+		93BCEBD613FCAB520020DB12 /* GDataXMLElement-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BCEBD513FCAB520020DB12 /* GDataXMLElement-Extras.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +55,6 @@
 		93B523BE13FA0DB60061566A /* iRest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B523C213FA0DB60061566A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		93B523C413FA0DB60061566A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		93B523C613FA0DB60061566A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		93B523CA13FA0DB60061566A /* iRest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iRest-Info.plist"; sourceTree = "<group>"; };
 		93B523CC13FA0DB60061566A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		93B523CE13FA0DB60061566A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -96,8 +96,12 @@
 		93B5244D13FAEFFE0061566A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		93B5244F13FAF01B0061566A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		93B5245113FAF02E0061566A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		93B5245513FAF0FA0061566A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		93B5245813FAF4C10061566A /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		93BCEBCC13FC690A0020DB12 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		93BCEBCD13FC690A0020DB12 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		93BCEBD213FC76040020DB12 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		93BCEBD413FCAB520020DB12 /* GDataXMLElement-Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GDataXMLElement-Extras.h"; sourceTree = "<group>"; };
+		93BCEBD513FCAB520020DB12 /* GDataXMLElement-Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GDataXMLElement-Extras.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +109,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93BCEBD313FC76040020DB12 /* CoreGraphics.framework in Frameworks */,
 				93B5245913FAF4C10061566A /* libz.1.2.3.dylib in Frameworks */,
-				93B523C713FA0DB60061566A /* CoreGraphics.framework in Frameworks */,
 				93B5245213FAF02E0061566A /* MobileCoreServices.framework in Frameworks */,
 				93B5245013FAF01B0061566A /* SystemConfiguration.framework in Frameworks */,
 				93B5244E13FAEFFE0061566A /* CFNetwork.framework in Frameworks */,
@@ -122,7 +126,6 @@
 				93B523E413FA0DB60061566A /* SenTestingKit.framework in Frameworks */,
 				93B523E513FA0DB60061566A /* UIKit.framework in Frameworks */,
 				93B523E613FA0DB60061566A /* Foundation.framework in Frameworks */,
-				93B523E713FA0DB60061566A /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +135,7 @@
 		93B523B313FA0DB60061566A = {
 			isa = PBXGroup;
 			children = (
+				93BCEBCB13FC690A0020DB12 /* GDataXML */,
 				9348D46913FB175B003DFDC0 /* README */,
 				93B5243513FAEDC60061566A /* ASIHTTP */,
 				93B523C813FA0DB60061566A /* iRest */,
@@ -153,14 +157,13 @@
 		93B523C113FA0DB60061566A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93BCEBD213FC76040020DB12 /* CoreGraphics.framework */,
 				93B5245813FAF4C10061566A /* libz.1.2.3.dylib */,
-				93B5245513FAF0FA0061566A /* CoreGraphics.framework */,
 				93B5245113FAF02E0061566A /* MobileCoreServices.framework */,
 				93B5244F13FAF01B0061566A /* SystemConfiguration.framework */,
 				93B5244D13FAEFFE0061566A /* CFNetwork.framework */,
 				93B523C213FA0DB60061566A /* UIKit.framework */,
 				93B523C413FA0DB60061566A /* Foundation.framework */,
-				93B523C613FA0DB60061566A /* CoreGraphics.framework */,
 				93B523E313FA0DB60061566A /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
@@ -245,6 +248,17 @@
 				93B5244C13FAEDC60061566A /* Reachability.m */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		93BCEBCB13FC690A0020DB12 /* GDataXML */ = {
+			isa = PBXGroup;
+			children = (
+				93BCEBCC13FC690A0020DB12 /* GDataXMLNode.h */,
+				93BCEBCD13FC690A0020DB12 /* GDataXMLNode.m */,
+				93BCEBD413FCAB520020DB12 /* GDataXMLElement-Extras.h */,
+				93BCEBD513FCAB520020DB12 /* GDataXMLElement-Extras.m */,
+			);
+			path = GDataXML;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,6 +379,8 @@
 				93B523CF13FA0DB60061566A /* main.m in Sources */,
 				93B523D313FA0DB60061566A /* iRestAppDelegate.m in Sources */,
 				93B523D913FA0DB60061566A /* iRestViewController.m in Sources */,
+				93BCEBCE13FC690A0020DB12 /* GDataXMLNode.m in Sources */,
+				93BCEBD613FCAB520020DB12 /* GDataXMLElement-Extras.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,7 +486,9 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRest/iRest-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2;
 				INFOPLIST_FILE = "iRest/iRest-Info.plist";
+				"OTHER_LDFLAGS[arch=*]" = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -481,7 +499,9 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iRest/iRest-Prefix.pch";
+				"HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2;
 				INFOPLIST_FILE = "iRest/iRest-Info.plist";
+				"OTHER_LDFLAGS[arch=*]" = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
