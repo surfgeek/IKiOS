@@ -9,20 +9,22 @@
 #import <UIKit/UIKit.h>
 
 @interface iRestViewController : UIViewController {
-    UITextField *serverUrl;
-    UITextView *responseTextView;
-    UITextView *inputTextView;
-    UIActivityIndicatorView *activityIndicator;
-    UIButton *sendButton;
+    UITextField *_serverUrl;
+    UITextView *_responseTextView;
+    UITextView *_inputTextView;
+    UIActivityIndicatorView *_activityIndicator;
+    UIButton *_sendButton;
+    NSOperationQueue *_queue;
 }
 
-@property (nonatomic, retain) IBOutlet UITextField *serverUrl;
-@property (nonatomic, retain) IBOutlet UITextView *responseTextView;
-@property (nonatomic, retain) IBOutlet UITextView *inputTextView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) IBOutlet UIButton *sendButton;
+@property (nonatomic, retain) IBOutlet UITextField *ServerUrl;
+@property (nonatomic, retain) IBOutlet UITextView *ResponseTextView;
+@property (nonatomic, retain) IBOutlet UITextView *InputTextView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *ActivityIndicator;
+@property (nonatomic, retain) IBOutlet UIButton *SendButton;
+@property (retain) NSOperationQueue *Queue;
 
-- (IBAction)sendButtonClick:(id)sender;
+- (IBAction)SendButtonClick:(id)sender;
 
 -(void)PostDataToServer: (NSString*) server text: (NSString*) inputText;
 @end
