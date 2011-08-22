@@ -38,6 +38,7 @@
 		93BCEBCE13FC690A0020DB12 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BCEBCD13FC690A0020DB12 /* GDataXMLNode.m */; };
 		93BCEBD313FC76040020DB12 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BCEBD213FC76040020DB12 /* CoreGraphics.framework */; };
 		93BCEBD613FCAB520020DB12 /* GDataXMLElement-Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BCEBD513FCAB520020DB12 /* GDataXMLElement-Extras.m */; };
+		93FAFF2813FF0970002C36BE /* DataElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 93FAFF2713FF0970002C36BE /* DataElement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +103,8 @@
 		93BCEBD213FC76040020DB12 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		93BCEBD413FCAB520020DB12 /* GDataXMLElement-Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GDataXMLElement-Extras.h"; sourceTree = "<group>"; };
 		93BCEBD513FCAB520020DB12 /* GDataXMLElement-Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GDataXMLElement-Extras.m"; sourceTree = "<group>"; };
+		93FAFF2613FF0970002C36BE /* DataElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataElement.h; sourceTree = "<group>"; };
+		93FAFF2713FF0970002C36BE /* DataElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataElement.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,7 @@
 		93B523B313FA0DB60061566A = {
 			isa = PBXGroup;
 			children = (
+				93FAFF2113FF091F002C36BE /* Models */,
 				93BCEBCB13FC690A0020DB12 /* GDataXML */,
 				9348D46913FB175B003DFDC0 /* README */,
 				93B5243513FAEDC60061566A /* ASIHTTP */,
@@ -261,6 +265,15 @@
 			path = GDataXML;
 			sourceTree = "<group>";
 		};
+		93FAFF2113FF091F002C36BE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				93FAFF2613FF0970002C36BE /* DataElement.h */,
+				93FAFF2713FF0970002C36BE /* DataElement.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -381,6 +394,7 @@
 				93B523D913FA0DB60061566A /* iRestViewController.m in Sources */,
 				93BCEBCE13FC690A0020DB12 /* GDataXMLNode.m in Sources */,
 				93BCEBD613FCAB520020DB12 /* GDataXMLElement-Extras.m in Sources */,
+				93FAFF2813FF0970002C36BE /* DataElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

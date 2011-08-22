@@ -10,6 +10,7 @@
 #import "ASIHTTPRequest.h"
 #import "GDataXMLNode.h"
 #import "GDataXMLElement-Extras.h"
+#import "DataElement.h"
 
 @implementation iRestViewController
 
@@ -37,7 +38,7 @@
 {
     [super viewDidLoad];
     self.Queue = [[[NSOperationQueue alloc] init] autorelease];
-    [_serverUrl setText:@"http://bccm4500/Rest/IOSService/CurrentTimeJson"];
+    [_serverUrl setText:@"http://bccm4500/Rest/IOSService/TestXml"];
 }
 
 
@@ -93,18 +94,24 @@
 
 - (void)parseXml:(GDataXMLElement *)rootElement entries:(NSMutableArray *)entries {
     
-    NSArray *channels = [rootElement elementsForName:@"channel"];
-    for (GDataXMLElement *channel in channels) {            
+    NSArray *dataElement = [rootElement elementsForName:@"DataElement"];
+    for (GDataXMLElement *children in dataElement) 
+    {            
+        DataElement* dataElement = [[[DataElement alloc] init] autorelease];
         
-        NSString *blogTitle = [channel valueForChild:@"title"];                    
+        dataElement.ElementId = [children valueForChild:@"Id"];
+        dataElement.DataSetName = [children valueForChild:@"DataSetName"];
+        dataElement.DataText  = [children valueForChild:@"DataText"];
         
-        NSArray *items = [channel elementsForName:@"item"];
-        for (GDataXMLElement *item in items) {
-            
-            NSString *articleTitle = [item valueForChild:@"title"];
-            NSString *articleUrl = [item valueForChild:@"link"];            
-            NSString *articleDateString = [item valueForChild:@"pubDate"];        
-            NSDate *articleDate = nil;
+        [entries addObject:dataElement];
+        
+//        NSArray *items = [children elementsForName:@"item"];
+//        for (GDataXMLElement *item in items) 
+//        {
+//            NSString *articleTitle = [item valueForChild:@"title"];
+//            NSString *articleUrl = [item valueForChild:@"link"];            
+//            NSString *articleDateString = [item valueForChild:@"pubDate"];        
+//            NSDate *articleDate = nil;
             
 //            RSSEntry *entry = [[[RSSEntry alloc] initWithBlogTitle:blogTitle 
 //                                                      articleTitle:articleTitle 
@@ -112,7 +119,7 @@
 //                                                       articleDate:articleDate] autorelease];
 //            [entries addObject:entry];
             
-        }      
+//        }      
     }
     
 }
@@ -120,7 +127,7 @@
 - (void)parseFeed:(GDataXMLElement *)rootElement entries:(NSMutableArray *)entries 
 {    
     NSString* name = [rootElement name];
-    if ([name compare:@"rss"] == NSOrderedSame) {
+    if ([name compare:@"DataElement"] == NSOrderedSame) {
         [self parseXml:rootElement entries:entries];
     } else {
         NSLog(@"Unsupported root element: %@", rootElement.name);
@@ -130,7 +137,7 @@
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     // Use when fetching text data
-    NSString *responseString = [request description];
+    NSString *responseString = [request responseString];
     NSData *responseData = [request responseData];
     
     
