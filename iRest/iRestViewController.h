@@ -8,14 +8,31 @@
 
 #import <UIKit/UIKit.h>
 
-@interface iRestViewController : UIViewController {
+#define kTextSegmentIndex 0
+#define kImageSegmentIndex 1
+#define kSketchSegmentIndex 2
+
+@interface iRestViewController : UIViewController<UIImagePickerControllerDelegate>
+{
+    UISegmentedControl *_inputTypeSelector;
+    
     UITextField *_serverUrl;
     UITextView *_responseTextView;
     UITextView *_inputTextView;
     UIActivityIndicatorView *_activityIndicator;
     UIButton *_sendButton;
     NSOperationQueue *_queue;
+    
+    UIImageView *imageView;
+    UIButton *takePictureButton;
+    UIButton *selectpictureButton;
+    UIImage *image;
+    CGRect imageFrame;
+    
+    UIView *sketchView;
 }
+
+@property (nonatomic, retain) IBOutlet UISegmentedControl *InputTypeSelector;
 
 @property (nonatomic, retain) IBOutlet UITextField *ServerUrl;
 @property (nonatomic, retain) IBOutlet UITextView *ResponseTextView;
@@ -24,7 +41,20 @@
 @property (nonatomic, retain) IBOutlet UIButton *SendButton;
 @property (retain) NSOperationQueue *Queue;
 
-- (IBAction)SendButtonClick:(id)sender;
+@property (nonatomic, retain) IBOutlet UIImageView *imageView;
+@property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
+@property (nonatomic, retain) IBOutlet UIButton *selectPictureButton;
+@property (nonatomic, retain) UIImage *image;
 
+@property (nonatomic, retain) IBOutlet UIView *sketchView;
+
+- (IBAction)SendButtonClick:(id)sender;
 -(void)PostDataToServer: (NSString*) server text: (NSString*) inputText;
+
+- (IBAction)toggleinputType:(id)sender;
+- (IBAction)shootPicture:(id)sender;
+- (IBAction)selectExistingPicture:(id)sender;
+- (IBAction)textFieldDoneEditing:(id)sender;
+- (IBAction)backgroundTap:(id)sender;
+
 @end

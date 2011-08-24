@@ -13,6 +13,7 @@
 @synthesize ElementId = _elementId;
 @synthesize DataSetName = _dataSetName;
 @synthesize DataText = _dataText;
+@synthesize DataImageBase64 = _dataImageBase64;
 
 - (id)init
 {
