@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		40B3967814045E0300C82220 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B3967714045E0300C82220 /* Base64.m */; };
+		40B396981404846700C82220 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40B396961404846700C82220 /* FlipsideViewController.m */; };
+		40B396991404846700C82220 /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 40B396971404846700C82220 /* FlipsideView.xib */; };
 		9348D46A13FB175B003DFDC0 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 9348D46913FB175B003DFDC0 /* README */; };
 		93B523C313FA0DB60061566A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C213FA0DB60061566A /* UIKit.framework */; };
 		93B523C513FA0DB60061566A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93B523C413FA0DB60061566A /* Foundation.framework */; };
@@ -55,6 +57,9 @@
 /* Begin PBXFileReference section */
 		40B3967614045E0300C82220 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		40B3967714045E0300C82220 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		40B396951404846700C82220 /* FlipsideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlipsideViewController.h; sourceTree = "<group>"; };
+		40B396961404846700C82220 /* FlipsideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlipsideViewController.m; sourceTree = "<group>"; };
+		40B396971404846700C82220 /* FlipsideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlipsideView.xib; sourceTree = "<group>"; };
 		9348D46913FB175B003DFDC0 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		93B523BE13FA0DB60061566A /* iRest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iRest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B523C213FA0DB60061566A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -195,6 +200,9 @@
 				93B523D813FA0DB60061566A /* iRestViewController.m */,
 				93B523DA13FA0DB60061566A /* iRestViewController.xib */,
 				93B523C913FA0DB60061566A /* Supporting Files */,
+				40B396951404846700C82220 /* FlipsideViewController.h */,
+				40B396961404846700C82220 /* FlipsideViewController.m */,
+				40B396971404846700C82220 /* FlipsideView.xib */,
 			);
 			path = iRest;
 			sourceTree = "<group>";
@@ -358,6 +366,7 @@
 				93B523D613FA0DB60061566A /* MainWindow.xib in Resources */,
 				93B523DC13FA0DB60061566A /* iRestViewController.xib in Resources */,
 				9348D46A13FB175B003DFDC0 /* README in Resources */,
+				40B396991404846700C82220 /* FlipsideView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +418,7 @@
 				93BCEBD613FCAB520020DB12 /* GDataXMLElement-Extras.m in Sources */,
 				93FAFF2813FF0970002C36BE /* DataElement.m in Sources */,
 				40B3967814045E0300C82220 /* Base64.m in Sources */,
+				40B396981404846700C82220 /* FlipsideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

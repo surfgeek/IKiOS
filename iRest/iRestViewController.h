@@ -7,16 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FlipsideViewController.h"
 
 #define kTextSegmentIndex 0
 #define kImageSegmentIndex 1
 #define kSketchSegmentIndex 2
 
-@interface iRestViewController : UIViewController<UIImagePickerControllerDelegate>
+@interface iRestViewController : UIViewController<UIImagePickerControllerDelegate, FlipsideViewControllerDelegate>
 {
     UISegmentedControl *_inputTypeSelector;
     
-    UITextField *_serverUrl;
+    NSString *_serverUrl;
     UITextView *_responseTextView;
     UITextView *_inputTextView;
     UIActivityIndicatorView *_activityIndicator;
@@ -34,7 +35,7 @@
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *InputTypeSelector;
 
-@property (nonatomic, retain) IBOutlet UITextField *ServerUrl;
+@property (nonatomic, retain) NSString *ServerUrl;
 @property (nonatomic, retain) IBOutlet UITextView *ResponseTextView;
 @property (nonatomic, retain) IBOutlet UITextView *InputTextView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *ActivityIndicator;

@@ -7,10 +7,12 @@
 //
 
 #import "iRestViewController.h"
+#import "FlipsideViewController.h"
 #import "ASIHTTPRequest.h"
 #import "GDataXMLNode.h"
 #import "GDataXMLElement-Extras.h"
 #import "DataElement.h"
+#import "Base64.h"
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -55,7 +57,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 {
     [super viewDidLoad];
     self.Queue = [[[NSOperationQueue alloc] init] autorelease];
-    [_serverUrl setText:@"http://IK002159/Rest/IOSService/TestXml"];
+    _serverUrl = @"http://IK002159/Rest/IOSService/TestXml";
     
     _inputTextView.hidden = NO;
     
@@ -75,6 +77,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 //    }
     
     imageFrame = imageView.frame;
+    
+    [Base64 initialize];
 }
 
 
@@ -105,7 +109,6 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 - (IBAction)backgroundTap:(id)sender
 {
-    [_serverUrl resignFirstResponder];
     [_inputTextView resignFirstResponder];
 }
 
@@ -236,6 +239,31 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     [super dealloc];
 }
 
+- (void)flipsideViewControllerDidFinish:(FlipsideViewController *)controller
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)setServerUrlString:(NSString *)url
+{
+    _serverUrl = url;
+}
+
+- (IBAction)showInfo:(id)sender
+{    
+    FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
+    controller.delegate = self;
+    
+    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentModalViewController:controller animated:YES];
+    
+    //MainView *view = (MainView *)self.view;
+//    [controller setColor:self.color lineWidth:self.lineWidth];
+    [controller setServerUrlString:_serverUrl];
+    
+    [controller release];
+}
+
 - (IBAction)sendButtonClick:(id)sender 
 {
     // Hide the keyboard
@@ -244,7 +272,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     NSString* input = [self getInputString];
     
     // Post the input text to the remote server
-    NSString* server = [_serverUrl text];
+    NSString* server = _serverUrl;
     
     [self PostDataToServer:server text:input];
 }
@@ -257,6 +285,12 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     }
     else if ([_inputTypeSelector selectedSegmentIndex] == kImageSegmentIndex)
     {
+        if (self.image == nil)
+        {
+            return nil;
+        }
+        NSData *imageData = UIImageJPEGRepresentation(image, 90);
+        return [Base64 encode:imageData];
     }
     
     return @"Drawing data";
