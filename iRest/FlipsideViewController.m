@@ -12,6 +12,7 @@
 
 @synthesize delegate = _delegate;
 @synthesize ServerUrl = _serverUrl;
+@synthesize JsonSwitch = _jsonSwitch;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,9 +68,15 @@
     _serverUrl.text = url;
 }
 
+- (void)setUsingJson:(BOOL)useJson
+{
+    _jsonSwitch.on = useJson;
+}
+
 - (IBAction)done:(id)sender
 {
     [self.delegate setServerUrlString:_serverUrl.text];
+    [self.delegate setUsingJson:_jsonSwitch.on];
     [self.delegate flipsideViewControllerDidFinish:self];
 }
 @end

@@ -18,6 +18,7 @@
     UISegmentedControl *_inputTypeSelector;
     
     NSString *_serverUrl;
+    BOOL _encodeAsJson;
     UITextView *_responseTextView;
     UITextView *_inputTextView;
     UIActivityIndicatorView *_activityIndicator;
@@ -29,6 +30,9 @@
     UIButton *selectpictureButton;
     UIImage *image;
     CGRect imageFrame;
+    UIImageView *responseImageView;
+    UIImage *responseImage;
+    CGRect responseImageFrame;
     
     UIView *sketchView;
 }
@@ -36,6 +40,7 @@
 @property (nonatomic, retain) IBOutlet UISegmentedControl *InputTypeSelector;
 
 @property (nonatomic, retain) NSString *ServerUrl;
+@property (nonatomic) BOOL EncodeAsJson;
 @property (nonatomic, retain) IBOutlet UITextView *ResponseTextView;
 @property (nonatomic, retain) IBOutlet UITextView *InputTextView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *ActivityIndicator;
@@ -46,11 +51,12 @@
 @property (nonatomic, retain) IBOutlet UIButton *takePictureButton;
 @property (nonatomic, retain) IBOutlet UIButton *selectPictureButton;
 @property (nonatomic, retain) UIImage *image;
-
+@property (nonatomic, retain) IBOutlet UIImageView *responseImageView;
+@property (nonatomic, retain) UIImage *responseImage;
 @property (nonatomic, retain) IBOutlet UIView *sketchView;
 
 - (IBAction)SendButtonClick:(id)sender;
--(void)PostDataToServer: (NSString*) server text: (NSString*) inputText;
+-(void)PostDataToServer: (NSString*) server text: (NSString*) inputText asJson:(BOOL)useJson;
 
 - (IBAction)toggleinputType:(id)sender;
 - (IBAction)shootPicture:(id)sender;

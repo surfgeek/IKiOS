@@ -13,7 +13,7 @@
 #import "GDataXMLElement-Extras.h"
 #import "DataElement.h"
 #import "Base64.h"
-
+#import "SBJson.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 
 @interface iRestViewController()
@@ -27,6 +27,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize InputTypeSelector = _inputTypeSelector;
 
 @synthesize ServerUrl = _serverUrl;
+@synthesize EncodeAsJson = _encodeAsJson;
 @synthesize ResponseTextView = _responseTextView;
 @synthesize InputTextView = _inputTextView;
 @synthesize ActivityIndicator = _activityIndicator;
@@ -37,6 +38,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize takePictureButton;
 @synthesize selectPictureButton;
 @synthesize image;
+@synthesize responseImageView;
+@synthesize responseImage;
 
 @synthesize sketchView;
 
@@ -57,7 +60,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 {
     [super viewDidLoad];
     self.Queue = [[[NSOperationQueue alloc] init] autorelease];
-    _serverUrl = @"http://IK002159/Rest/IOSService/TestXml";
+    _serverUrl = @"http://IK002159/Rest/IOSService/";
     
     _inputTextView.hidden = NO;
     
@@ -77,6 +80,9 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 //    }
     
     imageFrame = imageView.frame;
+    responseImageFrame = responseImageView.frame;
+    
+    _encodeAsJson = NO;
     
     [Base64 initialize];
 }
@@ -85,6 +91,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 - (void)viewDidUnload
 {
     self.imageView = nil;
+    self.responseImageView = nil;
     self.takePictureButton = nil;
     
     [self setServerUrl:nil];
@@ -92,6 +99,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [self setInputTextView:nil];
     [self setActivityIndicator:nil];
     [self setSendButton:nil];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -216,21 +224,12 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     }
 }
 
-- (UIImage *)createImageFromBase64:(unsigned char *)data pixelWidth:(int)width pixelHeight:(int)height
-{
-    CGColorSpaceRef colorspace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef ctx = CGBitmapContextCreate(data, width, height, 8, 32, colorspace, kCGImageAlphaPremultipliedLast);
-    CGColorSpaceRelease(colorspace);
-    CGImageRef cgImage = CGBitmapContextCreateImage(ctx);
-    CGContextRelease(ctx);
-    UIImage *image = [UIImage imageWithCGImage:cgImage];
-    CGImageRelease(cgImage);
-}
-
 - (void)dealloc {
     [imageView release];
+    [responseImageView release];
     [takePictureButton release];
     [image release];
+    [responseImage release];
     [_serverUrl release];
     [_responseTextView release];
     [_inputTextView release];
@@ -249,6 +248,11 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     _serverUrl = url;
 }
 
+- (void)setUsingJson:(BOOL)useJson
+{
+    _encodeAsJson = useJson;
+}
+
 - (IBAction)showInfo:(id)sender
 {    
     FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
@@ -257,9 +261,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentModalViewController:controller animated:YES];
     
-    //MainView *view = (MainView *)self.view;
-//    [controller setColor:self.color lineWidth:self.lineWidth];
     [controller setServerUrlString:_serverUrl];
+    [controller setUsingJson:_encodeAsJson];
     
     [controller release];
 }
@@ -269,40 +272,81 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     // Hide the keyboard
     [_inputTextView resignFirstResponder];
     
-    NSString* input = [self getInputString];
+    [_responseTextView setText:@""];
+    [responseImageView setImage:nil];
+    
+    DataElement* data = [[DataElement alloc] init];
+    data.ElementId = @"42";
+    data.DataSetName = @"Test Data";
+    data.DataText = [_inputTextView text];
+    data.DataImageBase64 = [self getStringFromImage:image];
     
     // Post the input text to the remote server
     NSString* server = _serverUrl;
     
-    [self PostDataToServer:server text:input];
+    [self PostDataToServer:server dataElement:data asJson:_encodeAsJson];
 }
 
-- (NSString *)getInputString
+- (NSString *)getStringFromImage:(UIImage *)theImage
 {
-    if ([_inputTypeSelector selectedSegmentIndex] == kTextSegmentIndex)
+    if (theImage == nil)
     {
-        return [_inputTextView text];
+        return @"";
     }
-    else if ([_inputTypeSelector selectedSegmentIndex] == kImageSegmentIndex)
+    NSData *imageData = UIImageJPEGRepresentation(theImage, 90);
+    return [Base64 encode:imageData];
+}
+
+- (UIImage *)getImageFromString:(NSString *)imageString
+{
+    if (imageString == nil)
     {
-        if (self.image == nil)
-        {
-            return nil;
-        }
-        NSData *imageData = UIImageJPEGRepresentation(image, 90);
-        return [Base64 encode:imageData];
+        return nil;
+    }
+    NSData *imageData = UIImageJPEGRepresentation(image, 90);
+    return [[UIImage alloc] initWithData:[Base64 decode:imageString]];
+}
+- (void)PostDataToServer:(NSString*)server dataElement:(DataElement*)dataElement asJson:(BOOL)useJson
+{
+    NSString *urlString = [[NSString alloc] init];
+    NSData *encodedData;
+    
+    // Determine the proper method to call.
+    if (useJson == YES)
+    {
+        urlString = [[server copy] stringByAppendingString:@"EchoJson"];
+        encodedData = [self encodeDataElementAsJson:dataElement];
+    }
+    else
+    {
+        urlString = [[server copy] stringByAppendingString:@"EchoXml"];
+        encodedData = [self encodeDataElementAsXml:dataElement];
     }
     
-    return @"Drawing data";
-}
-
--(void)PostDataToServer: (NSString*) server text: (NSString*) inputText
-{
-    // Post data to REST service 
-    NSURL *url = [NSURL URLWithString:server];
+    // Post data to REST service
+    NSURL *url = [NSURL URLWithString:urlString];
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+    [request appendPostData:encodedData];
+    [request setRequestMethod:@"PUT"];
     [request setDelegate:self];
     [request startAsynchronous];
+}
+
+- (NSData *)encodeDataElementAsXml:(DataElement *)dataElement
+{
+    GDataXMLElement *dataElementElement = [GDataXMLNode elementWithName:@"DataElement"];
+    GDataXMLElement *idElement = [GDataXMLNode elementWithName:@"Id" stringValue:[dataElement ElementId]];
+    GDataXMLElement *dataSetNameElement = [GDataXMLNode elementWithName:@"DataSetName" stringValue:[dataElement DataSetName]];
+    GDataXMLElement *dataTextElement = [GDataXMLNode elementWithName:@"DataText" stringValue:[dataElement DataText]];
+    GDataXMLElement *dataImageBase64Element = [GDataXMLNode elementWithName:@"DataImageBase64" stringValue:[dataElement DataImageBase64]];
+    
+    [dataElementElement addChild:idElement];
+    [dataElementElement addChild:dataSetNameElement];
+    [dataElementElement addChild:dataTextElement];
+    [dataElementElement addChild:dataImageBase64Element];
+    
+    GDataXMLDocument *document = [[[GDataXMLDocument alloc] initWithRootElement:dataElementElement] autorelease];
+    return document.XMLData;
 }
 
 - (NSObject *)parseXmlAsDataElement:(GDataXMLElement *)rootElement
@@ -312,11 +356,12 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     dataElement.ElementId = [rootElement valueForChild:@"Id"];
     dataElement.DataSetName = [rootElement valueForChild:@"DataSetName"];
     dataElement.DataText  = [rootElement valueForChild:@"DataText"];
+    dataElement.DataImageBase64  = [rootElement valueForChild:@"DataImageBase64"];
     
     return dataElement;
 }
 
-- (NSObject *)parseResponse:(GDataXMLElement *)rootElement
+- (NSObject *)parseXmlRootElement:(GDataXMLElement *)rootElement
 {    
     NSString* name = [rootElement name];
     if ([name compare:@"DataElement"] == NSOrderedSame) {
@@ -328,33 +373,84 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     return nil;
 }
 
+- (NSObject *)parseResponseAsXml:(NSString *)responseData
+{    
+    NSError *error;
+    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:responseData options:0 error:&error];
+    if (doc == nil)
+    { 
+        return NO;
+    }
+    
+    return [self parseXmlRootElement:doc.rootElement];                
+}
+
+- (NSData *)encodeDataElementAsJson:(DataElement *)dataElement
+{
+    SBJsonWriter *json = [[SBJsonWriter new] autorelease];
+    return [json dataWithObject:dataElement];
+}
+
+- (NSObject *)parseJsonAsDataElement:(NSArray *)fields
+{
+    DataElement *dataElement = [[DataElement alloc] init];
+    
+    dataElement.ElementId = [fields valueForKey:@"Id"];
+    dataElement.DataSetName = [fields valueForKey:@"DataSetName"];
+    dataElement.DataText  = [fields valueForKey:@"DataText"];
+    dataElement.DataImageBase64  = [fields valueForKey:@"DataImageBase64"];
+    
+    return dataElement;
+}
+
+- (NSObject *)parseResponseAsJson:(NSString *)responseString
+{
+	NSError *error;
+	SBJsonParser *json = [[SBJsonParser new] autorelease];
+	NSArray *fields = [json objectWithString:responseString error:&error];
+	if (fields == nil)
+    {
+        NSLog(@"JSON parsing failed: %@", [error localizedDescription]);
+        return NO;
+    }
+    
+    return [self parseJsonAsDataElement:fields];                
+}
+
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     // Use when fetching text data
-//    NSString *responseString = [request responseString];
-//    NSData *responseData = [request responseData];
+    NSString *responseString = [request responseString];
+    NSData *responseData = [request responseData];
+    NSObject *responseObject;
     
-    [_queue addOperationWithBlock:^{
-        
-        NSError *error;
-        GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:[request responseData] 
-                                                               options:0 error:&error];
-        if (doc == nil)
-        { 
-            NSLog(@"Failed to parse %@", request.url);
-        }
-        else
+    if (_encodeAsJson)
+    {
+        responseObject = [self parseResponseAsJson:responseString];
+    }
+    else
+    {
+        responseObject = [self parseResponseAsXml:responseData];
+    }
+    
+    if (responseObject == nil)
+    { 
+        NSLog(@"Failed to parse %@", request.url);
+        _responseTextView.text = @"Failed to parse response";
+        return;
+    }
+    
+    if ([responseObject isKindOfClass:[DataElement class]])
+    {
+        DataElement *dataElement = (DataElement *)responseObject;
+        _responseTextView.text = dataElement.DataText;
+        if (dataElement.DataImageBase64 != nil)
         {
-            NSObject *responseObject = [self parseResponse:doc.rootElement];                
-            
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                if ([responseObject isKindOfClass:[DataElement class]])
-                {
-                    _responseTextView.text = ((DataElement *)responseObject).DataText;
-                }
-            }];
-        }        
-    }];
+            UIImage *dataImage = [self getImageFromString:dataElement.DataImageBase64];
+            UIImage *shrunkenImage = shrinkImage(dataImage, responseImageFrame.size);
+            self.responseImageView.image = shrunkenImage;
+        }
+    }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
