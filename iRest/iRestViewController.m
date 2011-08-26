@@ -388,7 +388,15 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
 - (NSData *)encodeDataElementAsJson:(DataElement *)dataElement
 {
     SBJsonWriter *json = [[SBJsonWriter new] autorelease];
-    return [json dataWithObject:dataElement];
+    
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+                                       
+    [dictionary setObject:dataElement.ElementId forKey:@"Id"];
+    [dictionary setObject:dataElement.DataSetName forKey:@"DataSetName"];
+    [dictionary setObject:dataElement.DataText forKey:@"DataText"];
+    [dictionary setObject:dataElement.DataImageBase64 forKey:@"DataImageBase64"];
+    
+    return [json dataWithObject:dictionary];
 }
 
 - (NSObject *)parseJsonAsDataElement:(NSArray *)fields
