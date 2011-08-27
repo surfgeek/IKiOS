@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "FlipsideViewController.h"
+#import "PaintView.h"
 
 #define kTextSegmentIndex 0
 #define kImageSegmentIndex 1
@@ -34,7 +35,7 @@
     UIImage *responseImage;
     CGRect responseImageFrame;
     
-    UIView *sketchView;
+    PaintView *sketchView;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *InputTypeSelector;
@@ -53,7 +54,7 @@
 @property (nonatomic, retain) UIImage *image;
 @property (nonatomic, retain) IBOutlet UIImageView *responseImageView;
 @property (nonatomic, retain) UIImage *responseImage;
-@property (nonatomic, retain) IBOutlet UIView *sketchView;
+@property (nonatomic, retain) IBOutlet PaintView *sketchView;
 
 - (IBAction)SendButtonClick:(id)sender;
 -(void)PostDataToServer: (NSString*) server text: (NSString*) inputText asJson:(BOOL)useJson;

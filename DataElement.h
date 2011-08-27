@@ -14,11 +14,13 @@
     NSString* _dataSetName;
     NSString* _dataText;
     NSString* _dataImageBase64;
+    NSString* _dataSketch;
 }
 
 @property (nonatomic, retain) NSString* ElementId;
 @property (nonatomic, retain) NSString* DataSetName;
 @property (nonatomic, retain) NSString* DataText;
 @property (nonatomic, retain) NSString* DataImageBase64;
+@property (nonatomic, retain) NSString* DataSketch;
 
 @end

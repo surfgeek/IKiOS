@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40ABC83E14084A0100230E3D /* PaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 40ABC83D14084A0100230E3D /* PaintView.m */; };
+		40ABC84114084AB000230E3D /* Squiggle.m in Sources */ = {isa = PBXBuildFile; fileRef = 40ABC84014084AB000230E3D /* Squiggle.m */; };
 		40AF1780140712AB00DEC39E /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AF1768140712AB00DEC39E /* NSObject+SBJson.m */; };
 		40AF1781140712AB00DEC39E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AF176B140712AB00DEC39E /* SBJsonParser.m */; };
 		40AF1782140712AB00DEC39E /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 40AF176D140712AB00DEC39E /* SBJsonStreamParser.m */; };
@@ -67,6 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40ABC83C14084A0100230E3D /* PaintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintView.h; sourceTree = "<group>"; };
+		40ABC83D14084A0100230E3D /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintView.m; sourceTree = "<group>"; };
+		40ABC83F14084AB000230E3D /* Squiggle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Squiggle.h; sourceTree = "<group>"; };
+		40ABC84014084AB000230E3D /* Squiggle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Squiggle.m; sourceTree = "<group>"; };
 		40AF1766140712AB00DEC39E /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		40AF1767140712AB00DEC39E /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		40AF1768140712AB00DEC39E /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
@@ -275,6 +281,10 @@
 				40B396951404846700C82220 /* FlipsideViewController.h */,
 				40B396961404846700C82220 /* FlipsideViewController.m */,
 				40B396971404846700C82220 /* FlipsideView.xib */,
+				40ABC83C14084A0100230E3D /* PaintView.h */,
+				40ABC83D14084A0100230E3D /* PaintView.m */,
+				40ABC83F14084AB000230E3D /* Squiggle.h */,
+				40ABC84014084AB000230E3D /* Squiggle.m */,
 			);
 			path = iRest;
 			sourceTree = "<group>";
@@ -503,6 +513,8 @@
 				40AF1789140712AB00DEC39E /* SBJsonTokeniser.m in Sources */,
 				40AF178A140712AB00DEC39E /* SBJsonUTF8Stream.m in Sources */,
 				40AF178B140712AB00DEC39E /* SBJsonWriter.m in Sources */,
+				40ABC83E14084A0100230E3D /* PaintView.m in Sources */,
+				40ABC84114084AB000230E3D /* Squiggle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

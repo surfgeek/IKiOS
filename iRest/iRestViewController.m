@@ -8,6 +8,8 @@
 
 #import "iRestViewController.h"
 #import "FlipsideViewController.h"
+#import "PaintView.h"
+#import "Squiggle.h"
 #import "ASIHTTPRequest.h"
 #import "GDataXMLNode.h"
 #import "GDataXMLElement-Extras.h"
@@ -395,6 +397,31 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     [dictionary setObject:dataElement.DataSetName forKey:@"DataSetName"];
     [dictionary setObject:dataElement.DataText forKey:@"DataText"];
     [dictionary setObject:dataElement.DataImageBase64 forKey:@"DataImageBase64"];
+    
+    NSMutableArray *squiggles = [[NSMutableArray alloc] init];
+    for (Squiggle *squiggle in sketchView.finishedSquiggles)
+    {
+        NSMutableArray *squigglePoints = [[NSMutableArray alloc] init];
+        
+        for (int i = 0; i < [[squiggle points] count]; i++)
+        {
+            NSValue *value = [[squiggle points] objectAtIndex:i];
+            CGPoint point;
+            [value getValue:&point];
+            
+            NSMutableDictionary *normalizedCoords = [[NSMutableDictionary alloc] init];
+            [normalizedCoords setObject:[NSString stringWithFormat:@"%.2f", point.x] forKey:@"_x"];
+            [normalizedCoords setObject:[NSString stringWithFormat:@"%.2f", point.y] forKey:@"_y"];
+            
+            [squigglePoints addObject:normalizedCoords];
+        }
+        
+        NSMutableDictionary *pointEntry = [[NSMutableDictionary alloc] init];
+        [pointEntry setObject:squigglePoints forKey:@"Points"];
+        [squiggles addObject:pointEntry];
+        }
+        
+        [dictionary setObject:squiggles forKey:@"DataSketch"];
     
     return [json dataWithObject:dictionary];
 }

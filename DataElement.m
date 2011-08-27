@@ -14,6 +14,7 @@
 @synthesize DataSetName = _dataSetName;
 @synthesize DataText = _dataText;
 @synthesize DataImageBase64 = _dataImageBase64;
+@synthesize DataSketch = _dataSketch;
 
 - (id)init
 {
