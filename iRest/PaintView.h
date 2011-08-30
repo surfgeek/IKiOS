@@ -24,5 +24,6 @@
 
 - (void)drawSquiggle:(Squiggle *)squiggle inContext:(CGContextRef)context;
 - (void)resetView;
+- (void)addSquiggles:(NSMutableArray *)newSquiggles;
 
 @end

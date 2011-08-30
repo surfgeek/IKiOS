@@ -51,6 +51,14 @@
     CGContextFlush(context);
 }
 
+- (void)addSquiggles:(NSMutableArray *)newSquiggles
+{
+    [self resetView];
+    finishedSquiggles = newSquiggles;
+    [finishedSquiggles retain];
+    [self setNeedsDisplay];
+}
+
 - (void)drawSquiggle:(Squiggle*)squiggle inContext:(CGContextRef)context
 {
     UIColor *squiggleColor = squiggle.strokeColor;

@@ -36,16 +36,17 @@
     CGRect responseImageFrame;
     
     PaintView *sketchView;
+    PaintView *responseSketchView;
 }
 
 @property (nonatomic, retain) IBOutlet UISegmentedControl *InputTypeSelector;
 
 @property (nonatomic, retain) NSString *ServerUrl;
 @property (nonatomic) BOOL EncodeAsJson;
-@property (nonatomic, retain) IBOutlet UITextView *ResponseTextView;
-@property (nonatomic, retain) IBOutlet UITextView *InputTextView;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *ActivityIndicator;
-@property (nonatomic, retain) IBOutlet UIButton *SendButton;
+@property (nonatomic, retain) IBOutlet UITextView *responseTextView;
+@property (nonatomic, retain) IBOutlet UITextView *inputTextView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) IBOutlet UIButton *sendButton;
 @property (retain) NSOperationQueue *Queue;
 
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
@@ -55,6 +56,7 @@
 @property (nonatomic, retain) IBOutlet UIImageView *responseImageView;
 @property (nonatomic, retain) UIImage *responseImage;
 @property (nonatomic, retain) IBOutlet PaintView *sketchView;
+@property (nonatomic, retain) IBOutlet PaintView *responseSketchView;
 
 - (IBAction)SendButtonClick:(id)sender;
 -(void)PostDataToServer: (NSString*) server text: (NSString*) inputText asJson:(BOOL)useJson;

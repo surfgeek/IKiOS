@@ -30,10 +30,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 
 @synthesize ServerUrl = _serverUrl;
 @synthesize EncodeAsJson = _encodeAsJson;
-@synthesize ResponseTextView = _responseTextView;
-@synthesize InputTextView = _inputTextView;
-@synthesize ActivityIndicator = _activityIndicator;
-@synthesize SendButton = _sendButton;
+@synthesize responseTextView = _responseTextView;
+@synthesize inputTextView = _inputTextView;
+@synthesize activityIndicator = _activityIndicator;
+@synthesize sendButton = _sendButton;
 @synthesize Queue = _queue;
 
 @synthesize imageView;
@@ -44,6 +44,10 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 @synthesize responseImage;
 
 @synthesize sketchView;
+@synthesize responseSketchView;
+
+#pragma mark -
+#pragma mark Memory
 
 - (void)didReceiveMemoryWarning
 {
@@ -51,9 +55,11 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
     [super didReceiveMemoryWarning];
     
     
+    
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark -
 #pragma mark - View lifecycle
 
 
@@ -61,7 +67,20 @@ static UIImage *shrinkImage(UIImage *original, CGSize size);
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.Queue = [[[NSOperationQueue alloc] init] autorelease];
+    
+    NSOperationQueue *operationQueue = [[NSOperationQueue alloc] init];
+    self.Queue = operationQueue;
+    [operationQueue release];
+    
+//    NSAutoreleasePool *autoReleasePool = [[NSAutoreleasePool alloc] init];
+//    // start ???
+//    NSNumber *myNumber = [NSNumber numberWithInt:100];
+//    
+//    NSNumber *myNumber2 = [[[NSNumber alloc] initWithInt:100]autorelease];
+//    
+//    self.Queue = [[[NSOperationQueue alloc] init] autorelease];
+//    [autoReleasePool drain];
+    
     _serverUrl = @"http://IK002159/Rest/IOSService/";
     
     _inputTextView.hidden = NO;
@@ -224,6 +243,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
         [alert show];
         [alert release];
     }
+    
 }
 
 - (void)dealloc {
@@ -276,12 +296,14 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     
     [_responseTextView setText:@""];
     [responseImageView setImage:nil];
+    [responseSketchView resetView];
     
     DataElement* data = [[DataElement alloc] init];
     data.ElementId = @"42";
     data.DataSetName = @"Test Data";
     data.DataText = [_inputTextView text];
     data.DataImageBase64 = [self getStringFromImage:image];
+    data.DataSketch = [sketchView.finishedSquiggles copy];    
     
     // Post the input text to the remote server
     NSString* server = _serverUrl;
@@ -342,10 +364,40 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     GDataXMLElement *dataTextElement = [GDataXMLNode elementWithName:@"DataText" stringValue:[dataElement DataText]];
     GDataXMLElement *dataImageBase64Element = [GDataXMLNode elementWithName:@"DataImageBase64" stringValue:[dataElement DataImageBase64]];
     
+    GDataXMLElement *dataSketchElement = [GDataXMLNode elementWithName:@"DataSketch"];
+    for (Squiggle *squiggle in dataElement.DataSketch)
+    {
+        GDataXMLElement *dataSquiggleElement = [GDataXMLNode elementWithName:@"Squiggle"];
+        
+        GDataXMLElement *dataPointsElement = [GDataXMLNode elementWithName:@"Points"];
+        
+        for (int i = 0; i < [[squiggle points] count]; i++)
+        {
+            
+            GDataXMLElement *dataPointElement = [GDataXMLNode elementWithName:@"SquigglePoint"];
+            NSValue *value = [[squiggle points] objectAtIndex:i];
+            CGPoint point;
+            [value getValue:&point];
+            
+            GDataXMLElement *xElement = [GDataXMLNode elementWithName:@"X" stringValue:[NSString stringWithFormat:@"%.2f", point.x/sketchView.frame.size.width]];
+            GDataXMLElement *yElement = [GDataXMLNode elementWithName:@"Y" stringValue:[NSString stringWithFormat:@"%.2f", point.y/sketchView.frame.size.height]];
+            
+            [dataPointElement addChild:xElement];
+            [dataPointElement addChild:yElement];
+            
+            [dataPointsElement addChild:dataPointElement];
+       }
+        
+        [dataSquiggleElement addChild:dataPointsElement];
+        
+        [dataSketchElement addChild:dataSquiggleElement];
+    }
+        
     [dataElementElement addChild:idElement];
     [dataElementElement addChild:dataSetNameElement];
     [dataElementElement addChild:dataTextElement];
     [dataElementElement addChild:dataImageBase64Element];
+    [dataElementElement addChild:dataSketchElement];
     
     GDataXMLDocument *document = [[[GDataXMLDocument alloc] initWithRootElement:dataElementElement] autorelease];
     return document.XMLData;
@@ -359,6 +411,29 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     dataElement.DataSetName = [rootElement valueForChild:@"DataSetName"];
     dataElement.DataText  = [rootElement valueForChild:@"DataText"];
     dataElement.DataImageBase64  = [rootElement valueForChild:@"DataImageBase64"];
+    
+    dataElement.DataSketch = [[NSMutableArray alloc] init];
+    NSArray* squiggleNodes = [[rootElement elementForChild:@"DataSketch"] children];
+    for (GDataXMLNode *squigleNode in squiggleNodes)
+    {
+        Squiggle *squiggle = [[[Squiggle alloc] init] retain];
+        [squiggle setStrokeColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]];
+        [squiggle setLineWidth:3];
+        
+        NSArray* pointNodes = [[squigleNode elementForChild:@"Points"] children];
+        
+        for (GDataXMLElement *pointNode in pointNodes)
+        {
+            CGPoint point;
+            
+            point.x = [[pointNode valueForChild:@"X"] floatValue] * self.responseSketchView.frame.size.width;
+            point.y = [[pointNode valueForChild:@"Y"] floatValue] * self.responseSketchView.frame.size.height;
+            
+            [squiggle addPoint:point];
+        }
+        
+        [dataElement.DataSketch addObject:squiggle];
+    }
     
     return dataElement;
 }
@@ -399,7 +474,7 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
     [dictionary setObject:dataElement.DataImageBase64 forKey:@"DataImageBase64"];
     
     NSMutableArray *squiggles = [[NSMutableArray alloc] init];
-    for (Squiggle *squiggle in sketchView.finishedSquiggles)
+    for (Squiggle *squiggle in dataElement.DataSketch)
     {
         NSMutableArray *squigglePoints = [[NSMutableArray alloc] init];
         
@@ -410,8 +485,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
             [value getValue:&point];
             
             NSMutableDictionary *normalizedCoords = [[NSMutableDictionary alloc] init];
-            [normalizedCoords setObject:[NSString stringWithFormat:@"%.2f", point.x] forKey:@"_x"];
-            [normalizedCoords setObject:[NSString stringWithFormat:@"%.2f", point.y] forKey:@"_y"];
+            [normalizedCoords setObject:[NSString stringWithFormat:@"%.2f", point.x/sketchView.frame.size.width] forKey:@"X"];
+            [normalizedCoords setObject:[NSString stringWithFormat:@"%.2f", point.y/sketchView.frame.size.height] forKey:@"Y"];
             
             [squigglePoints addObject:normalizedCoords];
         }
@@ -419,21 +494,44 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
         NSMutableDictionary *pointEntry = [[NSMutableDictionary alloc] init];
         [pointEntry setObject:squigglePoints forKey:@"Points"];
         [squiggles addObject:pointEntry];
-        }
+    }
         
-        [dictionary setObject:squiggles forKey:@"DataSketch"];
+    [dictionary setObject:squiggles forKey:@"DataSketch"];
     
     return [json dataWithObject:dictionary];
 }
 
 - (NSObject *)parseJsonAsDataElement:(NSArray *)fields
 {
-    DataElement *dataElement = [[DataElement alloc] init];
+    DataElement *dataElement = [[[DataElement alloc] init] retain];
     
     dataElement.ElementId = [fields valueForKey:@"Id"];
     dataElement.DataSetName = [fields valueForKey:@"DataSetName"];
     dataElement.DataText  = [fields valueForKey:@"DataText"];
     dataElement.DataImageBase64  = [fields valueForKey:@"DataImageBase64"];
+    
+    dataElement.DataSketch = [[NSMutableArray alloc] init];
+    NSMutableArray *squiggles = [fields valueForKey:@"DataSketch"];
+    for (NSMutableDictionary *squiggleDictionary in squiggles)
+    {
+        Squiggle *squiggle = [[[Squiggle alloc] init] retain];
+        [squiggle setStrokeColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1.0]];
+        [squiggle setLineWidth:3];
+        
+        NSMutableArray *squigglePoints = [squiggleDictionary valueForKey:@"Points"];
+        
+        for (NSMutableDictionary *pointCoords in squigglePoints)
+        {
+            CGPoint point;
+            
+            point.x = [[pointCoords objectForKey:@"X"] floatValue] * self.responseSketchView.frame.size.width;
+            point.y = [[pointCoords objectForKey:@"Y"] floatValue] * self.responseSketchView.frame.size.height;
+            
+            [squiggle addPoint:point];
+        }
+        
+        [dataElement.DataSketch addObject:squiggle];
+    }
     
     return dataElement;
 }
@@ -484,6 +582,8 @@ static UIImage *shrinkImage(UIImage *original, CGSize size) {
             UIImage *dataImage = [self getImageFromString:dataElement.DataImageBase64];
             UIImage *shrunkenImage = shrinkImage(dataImage, responseImageFrame.size);
             self.responseImageView.image = shrunkenImage;
+            NSMutableArray *sketch = dataElement.DataSketch;
+            [self.responseSketchView addSquiggles:sketch];
         }
     }
 }
